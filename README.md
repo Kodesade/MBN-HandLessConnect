@@ -1,15 +1,11 @@
-# MBN-FreeHandConnect
-A simple script to connect to MBN with freehand
-## Installation
-### 🇺🇸
-1. Download "main.user.js"
-2. Import the file on your userscript space
-3. Open file and modify username and password
-### 🇫🇷
-1. Télécharge "main.user.js"
-2. Importe le fichier dans ton espace de scripts utilisateur
-3. Ouvre le fichier et modifie le nom d'utilisateur et le mot de passe
+## ⛰️ Etapes à suivre pour installer le script proprement
+1. Ajouter le script dans votre gestionnaire de scripts utilisateur.
+2. Modifier les variables `USERNAME` & `PASSWORD`.
+3. Enregistrer les modifications
 
-# Use / Utilisation
-Open URL "https://cas.monbureaunumerique.fr/login" and it's good 😄
+✨ Et voilà terminé ✨
 
+## ✔️ Liens pris en charges
+- https://`{school_name}`.monbureaunumerique.fr (Page d'acceuil de l'établissement)
+- https://cas.monbureaunumerique.fr/login (Page de connexion)
+- Page de connexion EduConnect
