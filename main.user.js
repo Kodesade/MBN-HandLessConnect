@@ -1,24 +1,36 @@
 // ==UserScript==
-// @name         AutoConnect
-// @version      final
-// @description  FreeHand connect to ENT
-// @author       Kodesade
-// @match        https://cas.monbureaunumerique.fr/login*
-// @match        https://educonnect.education.gouv.fr/*
-// @icon         https://www.google.com/s2/favicons?domain=monbureaunumerique.fr
-// @grant        none
+// @name        [MBN] HandLess-Connect
+// @include     https://*.monbureaunumerique.fr*
+// @include     https://cas.monbureaunumerique.fr/login*
+// @include     https://educonnect.education.gouv.fr/idp/profile/SAML2/POST/SSO*
+// @grant       none
+// @version     2.0.0
+// @author      Kodesade
 // ==/UserScript==
 
-(function() {
-    'use strict';
+const USERNAME = "..."
+const PASSWORD = "..."
+const LINKREGEX = /(?:https:\/\/)(?!(?:cas\.)).+\.monbureaunumerique\.fr\/?/
 
-    if(location.origin == "https://cas.monbureaunumerique.fr"){
-        document.querySelector("#idp-EDU").click()
-        document.querySelector("#button-submit").click()
-    }
-    if(location.origin == "https://educonnect.education.gouv.fr"){
-        document.querySelector("#username").value = "Nom d'utilisateur" // To modify
-        document.querySelector("#password").value = "Mot de passe" // To modify
-        document.querySelector("#bouton_valider").click()
-    }
-})();
+if (LINKREGEX.exec(window.location.href)){
+  var target = window.document.querySelector(".fo-connect__link")
+  var link = target.href
+  window.location = link
+}
+
+if (window.location.href.startsWith("https://cas.monbureaunumerique.fr/login")){
+  var radioTarget = window.document.querySelector("#idp-EDU")
+  radioTarget.checked = true
+  var form = window.document.querySelector(".cas__wayf-form")
+  form.requestSubmit()
+}
+
+if (window.location.href.startsWith("https://educonnect.education.gouv.fr/idp/profile/SAML2/POST/SSO")){
+  var inputUserName = window.document.querySelector("#username")
+  var inputPassword = window.document.querySelector("#password")
+  inputUserName.value = USERNAME
+  inputPassword.value = PASSWORD
+  var submitBtn = window.document.querySelector("#bouton_valider")
+  submitBtn.click()
+  
+}
