@@ -4,33 +4,48 @@
 // @include     https://cas.monbureaunumerique.fr/login*
 // @include     https://educonnect.education.gouv.fr/idp/profile/SAML2/POST/SSO*
 // @grant       none
-// @version     2.0.0
+// @version     2.1.0
 // @author      Kodesade
+// @website     https://github.com/Kodesade/MBN-HandLessConnect/
 // ==/UserScript==
 
-const USERNAME = "..."
-const PASSWORD = "..."
-const LINKREGEX = /(?:https:\/\/)(?!(?:cas\.)).+\.monbureaunumerique\.fr\/?/
+// Définition des constantes contenant les informations de connexion
+const USERNAME = "...";
+const PASSWORD = "...";
 
-if (LINKREGEX.exec(window.location.href)){
-  var target = window.document.querySelector(".fo-connect__link")
-  var link = target.href
-  window.location = link
+// Définition de l'expression régulière pour les liens à traiter
+const LINKREGEX = /(?:https:\/\/)(?!(?:cas\.)).+\.monbureaunumerique\.fr\/?/;
+
+// Si l'URL actuelle correspond à une expression régulière
+if (LINKREGEX.exec(window.location.href)) {
+  // Sélection du lien à suivre
+  const target = window.document.querySelector(".fo-connect__link");
+  // Redirection vers le lien
+  window.location = target.href;
 }
 
-if (window.location.href.startsWith("https://cas.monbureaunumerique.fr/login")){
-  var radioTarget = window.document.querySelector("#idp-EDU")
-  radioTarget.checked = true
-  var form = window.document.querySelector(".cas__wayf-form")
-  form.requestSubmit()
+// Si l'URL actuelle est l'URL de connexion
+if (window.location.href.startsWith("https://cas.monbureaunumerique.fr/login")) {
+  // Sélection du bouton radio pour la connexion avec eduConnect
+  const radioTarget = window.document.querySelector("#idp-EDU");
+  // Coche le bouton radio
+  radioTarget.checked = true;
+  // Sélection du formulaire de connexion
+  const form = window.document.querySelector(".cas__wayf-form");
+  // Soumission du formulaire
+  form.requestSubmit();
 }
 
-if (window.location.href.startsWith("https://educonnect.education.gouv.fr/idp/profile/SAML2/POST/SSO")){
-  var inputUserName = window.document.querySelector("#username")
-  var inputPassword = window.document.querySelector("#password")
-  inputUserName.value = USERNAME
-  inputPassword.value = PASSWORD
-  var submitBtn = window.document.querySelector("#bouton_valider")
-  submitBtn.click()
-  
+// Si l'URL actuelle est l'URL de connexion avec eduConnect
+if (window.location.href.startsWith("https://educonnect.education.gouv.fr/idp/profile/SAML2/POST/SSO")) {
+  // Sélection des champs de saisie du nom d'utilisateur et du mot de passe
+  const inputUserName = window.document.querySelector("#username");
+  const inputPassword = window.document.querySelector("#password");
+  // Remplissage des champs de saisie avec les informations de connexion
+  inputUserName.value = USERNAME;
+  inputPassword.value = PASSWORD;
+  // Sélection du bouton de soumission
+  const submitBtn = window.document.querySelector("#bouton_valider");
+  // Soumission du formulaire
+  submitBtn.click();
 }
